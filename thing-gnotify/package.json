@@ -1,0 +1,16 @@
+{
+  "name": "thing-gnotify",
+  "version": "0.0.1",
+  "description": "Pushes a freedesktop.org notification in response to the current_notification property of a thing",
+  "main": "app.js",
+  "scripts": {
+    "test": "./test.js"
+  },
+  "dependencies": {
+      "node-thing": "latest",
+      "node-dbus": "0.1.4",
+      "log4js": "~0.6"
+  },
+  "author": "Siddharth Trehan",
+  "license": "ISC"
+}

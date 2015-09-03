@@ -1,0 +1,19 @@
+{
+  "name": "thing-linconnect-android",
+  "version": "0.0.1",
+  "description": "A server that an android phone can connect to that serves as a node-thing for the phone",
+  "main": "app.js",
+  "scripts": {
+    "test": "./test.js"
+  },
+  "dependencies": {
+      "node-thing": "latest",
+      "mdns": "~2.2.9",
+      "log4js": "~0.6",
+      "express": "~4.13",
+      "connect-busboy": "~0.0.2",
+      "mongodb": "~2.0"
+  },
+  "author": "Siddharth Trehan",
+  "license": "ISC"
+}
