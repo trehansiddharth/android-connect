@@ -29,7 +29,6 @@ thing.connect(function (err) {
                 logger.trace("Successfully started thing.");
 
                 thing.onQuery("update_notification_id", function (property, new_notification_id, callback) {
-                    logger.trace("property: %s, new_notification_id: %s", property, new_notification_id);
                     thing.getStatus(property, function (err, value) {
                         if (err) {
                             logger.error("Could not update notification id properly: ", util.inspect(err));
@@ -42,11 +41,23 @@ thing.connect(function (err) {
                             thing.updateStatus(property, value, function (err, result) {
                                 if (err) {
                                     logger.error("Failed to update notification_id to new value: " + err);
+                                    callback(null);
                                 } else {
                                     logger.trace("Updated notification_id");
                                     callback(null);
                                 }
                             });
+                        }
+                    });
+                });
+
+                thing.onQuery("delete_notification", function (notification_id, callback) {
+                    thing.objects.device_status_collection.remove({ "value.notification_id" : notification_id }, function (err, result) {
+                        if (err) {
+                            logger.warn("Could not remove document with notification_id %s: %s", notification_id.toString(), util.inspect(err));
+                            callback(null);
+                        } else {
+                            callback(null);
                         }
                     });
                 });
@@ -109,7 +120,7 @@ thing.connect(function (err) {
                                             var notifcount = value.notification_count + 1;
                                             var notifinfo = {
                                                 summary : notifappname,
-                                                body : notifcount.toString() + " new messages",
+                                                body : notifcount.toString() + " new notifications",
                                                 icon : notificon,
                                                 notification_count : notifcount,
                                                 notification_id : value.notification_id,
@@ -148,6 +159,6 @@ thing.connect(function (err) {
 
                 app.listen(9090);
             }
-        })
+        });
     }
-})
+});

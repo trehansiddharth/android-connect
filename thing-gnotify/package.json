@@ -8,7 +8,7 @@
   },
   "dependencies": {
       "node-thing": "latest",
-      "node-dbus": "0.1.4",
+      "dbus-native": "~0.2",
       "log4js": "~0.6"
   },
   "author": "Siddharth Trehan",
