@@ -7,15 +7,40 @@ var thing   = require("node-thing"),
     express = require("express"),
     util    = require("util"),
     busboy  = require("connect-busboy"),
-    mongo   = require("mongodb");
+    mongo   = require("mongodb"),
+    fs      = require("fs");
 
-var ad = mdns.createAdvertisement(mdns.tcp("http"), 9090)
+var configurationFields = JSON.parse(fs.readFileSync("configuration_fields.json", "utf8"));
+
+var configurationFileName = "configuration.json";
+
+var configuration = JSON.parse(fs.readFileSync(configurationFileName, "utf8"));
+
+var configurationErrors = false;
+for (var field in configurationFields) {
+    if (!(field in configuration)) {
+        var value = configurationFields[field];
+        if (value.default) {
+            configuration[field] = value.default;
+        } else if (value.required) {
+            logger.error("The following field was not provided in the configuration file and does not have a default value:");
+            logger.error("Field name: %s", field);
+            logger.error("Field description: %s", value.description);
+        }
+    }
+}
+if (configurationErrors) {
+    process.exit(1);
+}
+
+var ad = mdns.createAdvertisement(mdns.tcp("http"), configuration.port)
 ad.start();
 
 thing.configure({
-    mongoUri : "mongodb://localhost:27017",
-    databaseName : "test",
-    thingName : "phone_moto"
+    mongoUri : configuration.mongoUri,
+    databaseName : configuration.databaseName,
+    oplogName : configuration.oplogName,
+    thingName : configuration.thingName
 });
 
 thing.connect(function (err) {
@@ -157,7 +182,7 @@ thing.connect(function (err) {
                     }
                 });
 
-                app.listen(9090);
+                app.listen(configuration.port);
             }
         });
     }

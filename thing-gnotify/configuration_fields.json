@@ -1,0 +1,44 @@
+{
+    "mongoUri" : {
+        "description" : "Uri of the database server to connect to, not including database name (e.g. mongodb://fred@foobar:27017)",
+        "required" : true
+    },
+    "databaseName" : {
+        "description" : "Name of the database containing notification info",
+        "required" : true
+    },
+    "oplogName" : {
+        "description" : "Name of the database containing the oplog",
+        "default" : "local",
+        "required" : true
+    },
+    "deviceNames" : {
+        "description" : "List of names of devices to receive notifications from",
+        "required" : true
+    },
+    "notification_timeout" : {
+        "description" : "Time after which notifications are timed out as an integer",
+        "default" : 5000,
+        "required" : true
+    },
+    "notification_icon" : {
+        "description" : "Icon to display next to notifications",
+        "default" : "linphone",
+        "required" : true
+    },
+    "notificationServiceName" : {
+        "description" : "Name of dbus notifications service",
+        "default" : "org.freedesktop.Notifications",
+        "required" : true
+    },
+    "notificationObjectPath" : {
+        "description" : "Name of dbus notifications object path",
+        "default" : "org.freedesktop.Notifications",
+        "required" : true
+    },
+    "notificationInterface" : {
+        "description" : "Name of dbus notifications interface",
+        "default" : "org.freedesktop.Notifications",
+        "required" : true
+    }
+}

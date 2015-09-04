@@ -1,0 +1,24 @@
+{
+    "mongoUri" : {
+        "description" : "Uri of the database server to connect to, not including database name (e.g. mongodb://fred@foobar:27017)",
+        "required" : true
+    },
+    "databaseName" : {
+        "description" : "Name of the database containing notification info",
+        "required" : true
+    },
+    "oplogName" : {
+        "description" : "Name of the database containing the oplog",
+        "default" : "local",
+        "required" : true
+    },
+    "thingName" : {
+        "description" : "Name to use for the phone",
+        "required" : true
+    },
+    "port" : {
+        "description" : "Port to listen to notification data",
+        "default" : 9090,
+        "required" : true
+    }
+}
